@@ -17,18 +17,18 @@
 
 <script id="hexo-configurations">
     var NexT = window.NexT || {};
-    var CONFIG = {"hostname":"example.com","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+    var CONFIG = {"hostname":"example.com","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
   </script>
 
-  <meta name="description" content="条款01：视C++为一个语言联邦 C： C++仍以C为基础 C++：类、封装、继承、多态、虚函数等 C++模板：C++泛型编程 STL：标准模板库，容器、迭代器、算法和函数对象  条款02：尽量使用const、enum、inline替换 #define 定义常量指针，由于常量定义通常被放在头文件内，因此有必要将指针声明为const  例：定义一个常量的char字符串   1const char*">
+  <meta name="description" content="tag: C++基础条款01：视C++为一个语言联邦 C： C++仍以C为基础 C++：类、封装、继承、多态、虚函数等 C++模板：C++泛型编程 STL：标准模板库，容器、迭代器、算法和函数对象  条款02：尽量使用const、enum、inline替换 #define 定义常量指针，由于常量定义通常被放在头文件内，因此有必要将指针声明为const  例：定义一个常量的char字符串   1c">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Effective C++(持续更新)">
 <meta property="og:url" content="http://example.com/2023/06/17/Effective%20C++/index.html">
-<meta property="og:site_name" content="充电小站">
-<meta property="og:description" content="条款01：视C++为一个语言联邦 C： C++仍以C为基础 C++：类、封装、继承、多态、虚函数等 C++模板：C++泛型编程 STL：标准模板库，容器、迭代器、算法和函数对象  条款02：尽量使用const、enum、inline替换 #define 定义常量指针，由于常量定义通常被放在头文件内，因此有必要将指针声明为const  例：定义一个常量的char字符串   1const char*">
+<meta property="og:site_name" content="不摇碧莲的博客">
+<meta property="og:description" content="tag: C++基础条款01：视C++为一个语言联邦 C： C++仍以C为基础 C++：类、封装、继承、多态、虚函数等 C++模板：C++泛型编程 STL：标准模板库，容器、迭代器、算法和函数对象  条款02：尽量使用const、enum、inline替换 #define 定义常量指针，由于常量定义通常被放在头文件内，因此有必要将指针声明为const  例：定义一个常量的char字符串   1c">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2023-06-17T15:34:14.556Z">
-<meta property="article:modified_time" content="2023-06-17T15:35:15.215Z">
+<meta property="article:modified_time" content="2023-06-17T16:43:53.552Z">
 <meta property="article:author" content="不摇碧莲">
 <meta name="twitter:card" content="summary">
 
@@ -45,7 +45,7 @@
   };
 </script>
 
-  <title>Effective C++(持续更新) | 充电小站</title>
+  <title>Effective C++(持续更新) | 不摇碧莲的博客</title>
   
 
 
@@ -96,7 +96,7 @@
 
     <a href="/" class="brand" rel="start">
       <span class="logo-line-before"><i></i></span>
-      <h1 class="site-title">充电小站</h1>
+      <h1 class="site-title">不摇碧莲的博客</h1>
       <span class="logo-line-after"><i></i></span>
     </a>
   </div>
@@ -117,11 +117,6 @@
     <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
 
   </li>
-        <li class="menu-item menu-item-about">
-
-    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
-
-  </li>
         <li class="menu-item menu-item-tags">
 
     <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
@@ -135,16 +130,6 @@
         <li class="menu-item menu-item-archives">
 
     <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
-
-  </li>
-        <li class="menu-item menu-item-schedule">
-
-    <a href="/schedule/" rel="section"><i class="fa fa-calendar fa-fw"></i>日程表</a>
-
-  </li>
-        <li class="menu-item menu-item-sitemap">
-
-    <a href="/sitemap.xml" rel="section"><i class="fa fa-sitemap fa-fw"></i>站点地图</a>
 
   </li>
   </ul>
@@ -184,7 +169,7 @@
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="充电小站">
+      <meta itemprop="name" content="不摇碧莲的博客">
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
@@ -197,10 +182,16 @@
                 <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">发表于</span>
-              
 
-              <time title="创建时间：2023-06-17 23:34:14 / 修改时间：23:35:15" itemprop="dateCreated datePublished" datetime="2023-06-17T23:34:14+08:00">2023-06-17</time>
+              <time title="创建时间：2023-06-17 23:34:14" itemprop="dateCreated datePublished" datetime="2023-06-17T23:34:14+08:00">2023-06-17</time>
             </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2023-06-18 00:43:53" itemprop="dateModified" datetime="2023-06-18T00:43:53+08:00">2023-06-18</time>
+              </span>
 
           
 
@@ -214,7 +205,7 @@
 
       
         <hr>
-<h2 id="条款01：视C-为一个语言联邦"><a href="#条款01：视C-为一个语言联邦" class="headerlink" title="条款01：视C++为一个语言联邦"></a>条款01：视C++为一个语言联邦</h2><ul>
+<h2 id="tag-C-基础"><a href="#tag-C-基础" class="headerlink" title="tag: C++基础"></a>tag: C++基础</h2><h2 id="条款01：视C-为一个语言联邦"><a href="#条款01：视C-为一个语言联邦" class="headerlink" title="条款01：视C++为一个语言联邦"></a>条款01：视C++为一个语言联邦</h2><ul>
 <li>C： C++仍以C为基础</li>
 <li>C++：类、封装、继承、多态、虚函数等</li>
 <li>C++模板：C++泛型编程</li>
@@ -304,8 +295,8 @@
         
     <div class="post-nav">
       <div class="post-nav-item">
-    <a href="/2023/06/16/%E6%B0%B8%E5%88%AB%E4%BA%86%EF%BC%8C%E7%89%A2%E7%AC%BC/" rel="prev" title="毕业随笔：永别了，牢笼">
-      <i class="fa fa-chevron-left"></i> 毕业随笔：永别了，牢笼
+    <a href="/2023/06/16/%E6%B0%B8%E5%88%AB%E4%BA%86%EF%BC%8C%E7%89%A2%E7%AC%BC/" rel="prev" title="永别了，牢笼">
+      <i class="fa fa-chevron-left"></i> 永别了，牢笼
     </a></div>
       <div class="post-nav-item"></div>
     </div>
@@ -366,7 +357,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%9D%A1%E6%AC%BE01%EF%BC%9A%E8%A7%86C-%E4%B8%BA%E4%B8%80%E4%B8%AA%E8%AF%AD%E8%A8%80%E8%81%94%E9%82%A6"><span class="nav-number">1.</span> <span class="nav-text">条款01：视C++为一个语言联邦</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%9D%A1%E6%AC%BE02%EF%BC%9A%E5%B0%BD%E9%87%8F%E4%BD%BF%E7%94%A8const%E3%80%81enum%E3%80%81inline%E6%9B%BF%E6%8D%A2-define"><span class="nav-number">2.</span> <span class="nav-text">条款02：尽量使用const、enum、inline替换 #define</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%9D%A1%E6%AC%BE03%EF%BC%9A%E5%B0%BD%E5%8F%AF%E8%83%BD%E4%BD%BF%E7%94%A8const"><span class="nav-number">3.</span> <span class="nav-text">条款03：尽可能使用const</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%9D%A1%E6%AC%BE04%EF%BC%9A%E7%A1%AE%E5%AE%9A%E5%AF%B9%E8%B1%A1%E8%A2%AB%E4%BD%BF%E7%94%A8%E5%89%8D%E5%B7%B2%E5%88%9D%E5%A7%8B%E5%8C%96"><span class="nav-number">4.</span> <span class="nav-text">条款04：确定对象被使用前已初始化</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%9D%A1%E6%AC%BE05%EF%BC%9A%E4%BA%86%E8%A7%A3C-%E9%BB%98%E9%BB%98%E7%BC%96%E5%86%99%E5%B9%B6%E8%B0%83%E7%94%A8%E5%93%AA%E4%BA%9B%E5%87%BD%E6%95%B0"><span class="nav-number">5.</span> <span class="nav-text">条款05：了解C++默默编写并调用哪些函数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%9D%A1%E6%AC%BE06%EF%BC%9A%E5%BF%85%E8%A6%81%E6%97%B6%E6%8B%92%E7%BB%9D%E7%BC%96%E8%AF%91%E5%99%A8%E8%87%AA%E5%8A%A8%E7%94%9F%E6%88%90%E5%87%BD%E6%95%B0"><span class="nav-number">6.</span> <span class="nav-text">条款06：必要时拒绝编译器自动生成函数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%9D%A1%E6%AC%BE07%EF%BC%9A%E4%B8%BA%E5%A4%9A%E6%80%81%E5%9F%BA%E7%B1%BB%E5%A3%B0%E6%98%8Evirtual%E6%9E%90%E6%9E%84%E5%87%BD%E6%95%B0"><span class="nav-number">7.</span> <span class="nav-text">条款07：为多态基类声明virtual析构函数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%9D%A1%E6%AC%BE08%EF%BC%9A%E5%88%AB%E8%AE%A9%E5%BC%82%E5%B8%B8%E9%80%83%E7%A6%BB%E6%9E%90%E6%9E%84%E5%87%BD%E6%95%B0"><span class="nav-number">8.</span> <span class="nav-text">条款08：别让异常逃离析构函数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%9D%A1%E6%AC%BE09%EF%BC%9A%E7%BB%9D%E4%B8%8D%E5%9C%A8%E6%9E%84%E9%80%A0%E5%92%8C%E6%9E%90%E6%9E%84%E8%BF%87%E7%A8%8B%E4%B8%AD%E8%B0%83%E7%94%A8virtual%E5%87%BD%E6%95%B0"><span class="nav-number">9.</span> <span class="nav-text">条款09：绝不在构造和析构过程中调用virtual函数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%9D%A1%E6%AC%BE10%EF%BC%9A%E4%BB%A4operator-x3D-%E8%BF%94%E5%9B%9E%E4%B8%80%E4%B8%AAreference-to-this"><span class="nav-number">10.</span> <span class="nav-text">条款10：令operator&#x3D;返回一个reference to *this</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%9D%A1%E6%AC%BE11%EF%BC%9A%E5%9C%A8operator-x3D-%E4%B8%AD%E5%A4%84%E7%90%86%E2%80%9C%E8%87%AA%E6%88%91%E8%B5%8B%E5%80%BC%E2%80%9D"><span class="nav-number">11.</span> <span class="nav-text">条款11：在operator&#x3D;中处理“自我赋值”</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%9D%A1%E6%AC%BE12%EF%BC%9A%E5%A4%8D%E5%88%B6%E5%AF%B9%E8%B1%A1%E6%97%B6%E5%8B%BF%E5%BF%98%E5%85%B6%E6%AF%8F%E4%B8%80%E4%B8%AA%E6%88%90%E5%88%86"><span class="nav-number">12.</span> <span class="nav-text">条款12：复制对象时勿忘其每一个成分</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%9D%A1%E6%AC%BE13%EF%BC%9A%E4%BB%A5%E5%AF%B9%E8%B1%A1%E7%AE%A1%E7%90%86%E8%B5%84%E6%BA%90"><span class="nav-number">13.</span> <span class="nav-text">条款13：以对象管理资源</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%9D%A1%E6%AC%BE14%EF%BC%9A%E5%9C%A8%E8%B5%84%E6%BA%90%E7%AE%A1%E7%90%86%E7%B1%BB%E4%B8%AD%E5%B0%8F%E5%BF%83copying%E8%A1%8C%E4%B8%BA"><span class="nav-number">14.</span> <span class="nav-text">条款14：在资源管理类中小心copying行为</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%B5%84%E6%BA%90%E7%AE%A1%E7%90%86%E7%B1%BB%E4%B8%AD%E7%9A%84%E5%A4%8D%E5%88%B6%E8%A1%8C%E4%B8%BA"><span class="nav-number">14.1.</span> <span class="nav-text">资源管理类中的复制行为</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%9D%A1%E6%AC%BE15%EF%BC%9A%E5%9C%A8%E8%B5%84%E6%BA%90%E7%AE%A1%E7%90%86%E7%B1%BB%E4%B8%AD%E6%8F%90%E4%BE%9B%E5%AF%B9%E5%8E%9F%E5%A7%8B%E8%B5%84%E6%BA%90%E7%9A%84%E8%AE%BF%E9%97%AE"><span class="nav-number">15.</span> <span class="nav-text">条款15：在资源管理类中提供对原始资源的访问</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%9D%A1%E6%AC%BE16%EF%BC%9A%E6%88%90%E5%AF%B9%E4%BD%BF%E7%94%A8new%E5%92%8Cdelete%E6%97%B6%E8%A6%81%E9%87%87%E5%8F%96%E7%9B%B8%E5%90%8C%E5%BD%A2%E5%BC%8F"><span class="nav-number">16.</span> <span class="nav-text">条款16：成对使用new和delete时要采取相同形式</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#tag-C-%E5%9F%BA%E7%A1%80"><span class="nav-number">1.</span> <span class="nav-text">tag: C++基础</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%9D%A1%E6%AC%BE01%EF%BC%9A%E8%A7%86C-%E4%B8%BA%E4%B8%80%E4%B8%AA%E8%AF%AD%E8%A8%80%E8%81%94%E9%82%A6"><span class="nav-number">2.</span> <span class="nav-text">条款01：视C++为一个语言联邦</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%9D%A1%E6%AC%BE02%EF%BC%9A%E5%B0%BD%E9%87%8F%E4%BD%BF%E7%94%A8const%E3%80%81enum%E3%80%81inline%E6%9B%BF%E6%8D%A2-define"><span class="nav-number">3.</span> <span class="nav-text">条款02：尽量使用const、enum、inline替换 #define</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%9D%A1%E6%AC%BE03%EF%BC%9A%E5%B0%BD%E5%8F%AF%E8%83%BD%E4%BD%BF%E7%94%A8const"><span class="nav-number">4.</span> <span class="nav-text">条款03：尽可能使用const</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%9D%A1%E6%AC%BE04%EF%BC%9A%E7%A1%AE%E5%AE%9A%E5%AF%B9%E8%B1%A1%E8%A2%AB%E4%BD%BF%E7%94%A8%E5%89%8D%E5%B7%B2%E5%88%9D%E5%A7%8B%E5%8C%96"><span class="nav-number">5.</span> <span class="nav-text">条款04：确定对象被使用前已初始化</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%9D%A1%E6%AC%BE05%EF%BC%9A%E4%BA%86%E8%A7%A3C-%E9%BB%98%E9%BB%98%E7%BC%96%E5%86%99%E5%B9%B6%E8%B0%83%E7%94%A8%E5%93%AA%E4%BA%9B%E5%87%BD%E6%95%B0"><span class="nav-number">6.</span> <span class="nav-text">条款05：了解C++默默编写并调用哪些函数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%9D%A1%E6%AC%BE06%EF%BC%9A%E5%BF%85%E8%A6%81%E6%97%B6%E6%8B%92%E7%BB%9D%E7%BC%96%E8%AF%91%E5%99%A8%E8%87%AA%E5%8A%A8%E7%94%9F%E6%88%90%E5%87%BD%E6%95%B0"><span class="nav-number">7.</span> <span class="nav-text">条款06：必要时拒绝编译器自动生成函数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%9D%A1%E6%AC%BE07%EF%BC%9A%E4%B8%BA%E5%A4%9A%E6%80%81%E5%9F%BA%E7%B1%BB%E5%A3%B0%E6%98%8Evirtual%E6%9E%90%E6%9E%84%E5%87%BD%E6%95%B0"><span class="nav-number">8.</span> <span class="nav-text">条款07：为多态基类声明virtual析构函数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%9D%A1%E6%AC%BE08%EF%BC%9A%E5%88%AB%E8%AE%A9%E5%BC%82%E5%B8%B8%E9%80%83%E7%A6%BB%E6%9E%90%E6%9E%84%E5%87%BD%E6%95%B0"><span class="nav-number">9.</span> <span class="nav-text">条款08：别让异常逃离析构函数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%9D%A1%E6%AC%BE09%EF%BC%9A%E7%BB%9D%E4%B8%8D%E5%9C%A8%E6%9E%84%E9%80%A0%E5%92%8C%E6%9E%90%E6%9E%84%E8%BF%87%E7%A8%8B%E4%B8%AD%E8%B0%83%E7%94%A8virtual%E5%87%BD%E6%95%B0"><span class="nav-number">10.</span> <span class="nav-text">条款09：绝不在构造和析构过程中调用virtual函数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%9D%A1%E6%AC%BE10%EF%BC%9A%E4%BB%A4operator-x3D-%E8%BF%94%E5%9B%9E%E4%B8%80%E4%B8%AAreference-to-this"><span class="nav-number">11.</span> <span class="nav-text">条款10：令operator&#x3D;返回一个reference to *this</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%9D%A1%E6%AC%BE11%EF%BC%9A%E5%9C%A8operator-x3D-%E4%B8%AD%E5%A4%84%E7%90%86%E2%80%9C%E8%87%AA%E6%88%91%E8%B5%8B%E5%80%BC%E2%80%9D"><span class="nav-number">12.</span> <span class="nav-text">条款11：在operator&#x3D;中处理“自我赋值”</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%9D%A1%E6%AC%BE12%EF%BC%9A%E5%A4%8D%E5%88%B6%E5%AF%B9%E8%B1%A1%E6%97%B6%E5%8B%BF%E5%BF%98%E5%85%B6%E6%AF%8F%E4%B8%80%E4%B8%AA%E6%88%90%E5%88%86"><span class="nav-number">13.</span> <span class="nav-text">条款12：复制对象时勿忘其每一个成分</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%9D%A1%E6%AC%BE13%EF%BC%9A%E4%BB%A5%E5%AF%B9%E8%B1%A1%E7%AE%A1%E7%90%86%E8%B5%84%E6%BA%90"><span class="nav-number">14.</span> <span class="nav-text">条款13：以对象管理资源</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%9D%A1%E6%AC%BE14%EF%BC%9A%E5%9C%A8%E8%B5%84%E6%BA%90%E7%AE%A1%E7%90%86%E7%B1%BB%E4%B8%AD%E5%B0%8F%E5%BF%83copying%E8%A1%8C%E4%B8%BA"><span class="nav-number">15.</span> <span class="nav-text">条款14：在资源管理类中小心copying行为</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%B5%84%E6%BA%90%E7%AE%A1%E7%90%86%E7%B1%BB%E4%B8%AD%E7%9A%84%E5%A4%8D%E5%88%B6%E8%A1%8C%E4%B8%BA"><span class="nav-number">15.1.</span> <span class="nav-text">资源管理类中的复制行为</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%9D%A1%E6%AC%BE15%EF%BC%9A%E5%9C%A8%E8%B5%84%E6%BA%90%E7%AE%A1%E7%90%86%E7%B1%BB%E4%B8%AD%E6%8F%90%E4%BE%9B%E5%AF%B9%E5%8E%9F%E5%A7%8B%E8%B5%84%E6%BA%90%E7%9A%84%E8%AE%BF%E9%97%AE"><span class="nav-number">16.</span> <span class="nav-text">条款15：在资源管理类中提供对原始资源的访问</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%9D%A1%E6%AC%BE16%EF%BC%9A%E6%88%90%E5%AF%B9%E4%BD%BF%E7%94%A8new%E5%92%8Cdelete%E6%97%B6%E8%A6%81%E9%87%87%E5%8F%96%E7%9B%B8%E5%90%8C%E5%BD%A2%E5%BC%8F"><span class="nav-number">17.</span> <span class="nav-text">条款16：成对使用new和delete时要采取相同形式</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -414,8 +405,10 @@
   </span>
   <span class="author" itemprop="copyrightHolder">不摇碧莲</span>
 </div>
+<!--
   <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> 强力驱动
   </div>
+-->
 
         
 
