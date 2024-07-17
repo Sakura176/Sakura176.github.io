@@ -20,16 +20,18 @@
     var CONFIG = {"hostname":"example.com","root":"/","scheme":"Mist","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
   </script>
 
-  <meta name="description" content="rCore 操作系统学习——序章 操作系统是所有计算机专业学生的必修课，但操作系统的原理与概念繁多，与具体实现存在较大的鸿沟，单纯的理论知识也会逐渐的遗忘。本博客跟随课程rCore-Tutorial逐步实现一个RISC-V指令集的操作系统。 ## 引言 ### 前期准备  了解计算机的基本原理 基本的数据结构与算法 RISC-V处理器的指令集和部分特权操作 Rust语言 RISC-">
+  <meta name="description" content="rCore 操作系统学习，记录操作系统相关知识，以及编程环境的配置流程。">
 <meta property="og:type" content="article">
-<meta property="og:title" content="不摇碧莲的博客">
+<meta property="og:title" content="rCore 操作系统学习——序章">
 <meta property="og:url" content="http://example.com/2024/06/18/rCore%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/rCore%20%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E5%AD%A6%E4%B9%A0%E2%80%94%E2%80%94%E5%BA%8F%E7%AB%A0/index.html">
 <meta property="og:site_name" content="不摇碧莲的博客">
-<meta property="og:description" content="rCore 操作系统学习——序章 操作系统是所有计算机专业学生的必修课，但操作系统的原理与概念繁多，与具体实现存在较大的鸿沟，单纯的理论知识也会逐渐的遗忘。本博客跟随课程rCore-Tutorial逐步实现一个RISC-V指令集的操作系统。 ## 引言 ### 前期准备  了解计算机的基本原理 基本的数据结构与算法 RISC-V处理器的指令集和部分特权操作 Rust语言 RISC-">
+<meta property="og:description" content="rCore 操作系统学习，记录操作系统相关知识，以及编程环境的配置流程。">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2024-06-18T11:51:37.146Z">
-<meta property="article:modified_time" content="2024-07-17T15:06:07.712Z">
+<meta property="article:modified_time" content="2024-07-17T15:15:38.815Z">
 <meta property="article:author" content="不摇碧莲">
+<meta property="article:tag" content="Rust">
+<meta property="article:tag" content="RISC-V">
 <meta name="twitter:card" content="summary">
 
 <link rel="canonical" href="http://example.com/2024/06/18/rCore%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/rCore%20%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E5%AD%A6%E4%B9%A0%E2%80%94%E2%80%94%E5%BA%8F%E7%AB%A0/">
@@ -45,7 +47,7 @@
   };
 </script>
 
-  <title> | 不摇碧莲的博客</title>
+  <title>rCore 操作系统学习——序章 | 不摇碧莲的博客</title>
   
 
 
@@ -174,7 +176,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          
+          rCore 操作系统学习——序章
         </h1>
 
         <div class="post-meta">
@@ -191,10 +193,20 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2024-07-17 23:06:07" itemprop="dateModified" datetime="2024-07-17T23:06:07+08:00">2024-07-17</time>
+                <time title="修改时间：2024-07-17 23:15:38" itemprop="dateModified" datetime="2024-07-17T23:15:38+08:00">2024-07-17</time>
               </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/" itemprop="url" rel="index"><span itemprop="name">操作系统</span></a>
+                </span>
+            </span>
 
           
+            <div class="post-description">rCore 操作系统学习，记录操作系统相关知识，以及编程环境的配置流程。</div>
 
         </div>
       </header>
@@ -205,8 +217,7 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h1 id="rcore-操作系统学习序章">rCore 操作系统学习——序章</h1>
-<p>操作系统是所有计算机专业学生的必修课，但操作系统的原理与概念繁多，与具体实现存在较大的鸿沟，单纯的理论知识也会逐渐的遗忘。本博客跟随课程<a href="%5Bgithub.com%5D(https://github.com/rcore-os/rCore-Tutorial-v3)">rCore-Tutorial</a>逐步实现一个RISC-V指令集的操作系统。
+        <p>操作系统是所有计算机专业学生的必修课，但操作系统的原理与概念繁多，与具体实现存在较大的鸿沟，单纯的理论知识也会逐渐的遗忘。本博客跟随课程<a href="%5Bgithub.com%5D(https://github.com/rcore-os/rCore-Tutorial-v3)">rCore-Tutorial</a>逐步实现一个RISC-V指令集的操作系统。
 ## 引言 ### 前期准备</p>
 <ul>
 <li>了解计算机的基本原理</li>
@@ -327,6 +338,10 @@ I/O 操作接口。</li>
     
 
       <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/Rust/" rel="tag"># Rust</a>
+              <a href="/tags/RISC-V/" rel="tag"># RISC-V</a>
+          </div>
 
         
 
@@ -399,7 +414,7 @@ I/O 操作接口。</li>
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#rcore-%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E5%AD%A6%E4%B9%A0%E5%BA%8F%E7%AB%A0"><span class="nav-number">1.</span> <span class="nav-text">rCore 操作系统学习——序章</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%9B%AE%E6%A0%87%E4%B8%8E%E6%AD%A5%E9%AA%A4"><span class="nav-number">1.0.1.</span> <span class="nav-text">目标与步骤</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80%E4%B8%8E%E7%A1%AC%E4%BB%B6%E7%8E%AF%E5%A2%83"><span class="nav-number">1.0.2.</span> <span class="nav-text">编程语言与硬件环境</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E6%A6%82%E5%BF%B5"><span class="nav-number">1.1.</span> <span class="nav-text">操作系统概念</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E5%AE%9A%E4%B9%89"><span class="nav-number">1.1.1.</span> <span class="nav-text">操作系统定义</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E7%9A%84%E4%B8%BB%E8%A6%81%E7%BB%84%E6%88%90"><span class="nav-number">1.1.2.</span> <span class="nav-text">操作系统的主要组成</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E5%86%85%E6%A0%B8%E7%BB%84%E6%88%90"><span class="nav-number">1.1.3.</span> <span class="nav-text">操作系统内核组成：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E8%B0%83%E7%94%A8%E6%8E%A5%E5%8F%A3"><span class="nav-number">1.1.4.</span> <span class="nav-text">操作系统调用接口</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#api%E4%B8%8Eabi"><span class="nav-number">1.1.4.1.</span> <span class="nav-text">API与ABI</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%B3%BB%E7%BB%9F%E8%B0%83%E7%94%A8%E6%8E%A5%E5%8F%A3%E4%B8%8E%E5%8A%9F%E8%83%BD"><span class="nav-number">1.1.4.2.</span> <span class="nav-text">系统调用接口与功能</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE"><span class="nav-number">1.2.</span> <span class="nav-text">实验环境配置</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#wsl2%E5%AE%89%E8%A3%85"><span class="nav-number">1.2.1.</span> <span class="nav-text">WSL2安装</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#c-%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83"><span class="nav-number">1.2.2.</span> <span class="nav-text">C 开发环境</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#rust-%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83"><span class="nav-number">1.2.3.</span> <span class="nav-text">Rust 开发环境</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#qemu-%E6%A8%A1%E6%8B%9F%E5%99%A8%E5%AE%89%E8%A3%85"><span class="nav-number">1.2.4.</span> <span class="nav-text">QEMU 模拟器安装</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#gdb%E8%B0%83%E8%AF%95%E6%94%AF%E6%8C%81"><span class="nav-number">1.2.5.</span> <span class="nav-text">GDB调试支持</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%BB%83%E4%B9%A0"><span class="nav-number">1.3.</span> <span class="nav-text">练习</span></a></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%9B%AE%E6%A0%87%E4%B8%8E%E6%AD%A5%E9%AA%A4"><span class="nav-number">1.</span> <span class="nav-text">目标与步骤</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80%E4%B8%8E%E7%A1%AC%E4%BB%B6%E7%8E%AF%E5%A2%83"><span class="nav-number">2.</span> <span class="nav-text">编程语言与硬件环境</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E6%A6%82%E5%BF%B5"><span class="nav-number"></span> <span class="nav-text">操作系统概念</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E5%AE%9A%E4%B9%89"><span class="nav-number">1.</span> <span class="nav-text">操作系统定义</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E7%9A%84%E4%B8%BB%E8%A6%81%E7%BB%84%E6%88%90"><span class="nav-number">2.</span> <span class="nav-text">操作系统的主要组成</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E5%86%85%E6%A0%B8%E7%BB%84%E6%88%90"><span class="nav-number">3.</span> <span class="nav-text">操作系统内核组成：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E8%B0%83%E7%94%A8%E6%8E%A5%E5%8F%A3"><span class="nav-number">4.</span> <span class="nav-text">操作系统调用接口</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#api%E4%B8%8Eabi"><span class="nav-number">4.1.</span> <span class="nav-text">API与ABI</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%B3%BB%E7%BB%9F%E8%B0%83%E7%94%A8%E6%8E%A5%E5%8F%A3%E4%B8%8E%E5%8A%9F%E8%83%BD"><span class="nav-number">4.2.</span> <span class="nav-text">系统调用接口与功能</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE"><span class="nav-number"></span> <span class="nav-text">实验环境配置</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#wsl2%E5%AE%89%E8%A3%85"><span class="nav-number">1.</span> <span class="nav-text">WSL2安装</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#c-%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83"><span class="nav-number">2.</span> <span class="nav-text">C 开发环境</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#rust-%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83"><span class="nav-number">3.</span> <span class="nav-text">Rust 开发环境</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#qemu-%E6%A8%A1%E6%8B%9F%E5%99%A8%E5%AE%89%E8%A3%85"><span class="nav-number">4.</span> <span class="nav-text">QEMU 模拟器安装</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#gdb%E8%B0%83%E8%AF%95%E6%94%AF%E6%8C%81"><span class="nav-number">5.</span> <span class="nav-text">GDB调试支持</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%BB%83%E4%B9%A0"><span class="nav-number"></span> <span class="nav-text">练习</span></a></div>
       </div>
       <!--/noindex-->
 
@@ -422,13 +437,13 @@ I/O 操作接口。</li>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">6</span>
+        <span class="site-state-item-count">7</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">5</span>
+        <span class="site-state-item-count">7</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>

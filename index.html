@@ -349,7 +349,7 @@ mjx-container[display="true"] + br {
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/2024/06/18/rCore%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/rCore%20%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E5%AD%A6%E4%B9%A0%E2%80%94%E2%80%94%E5%BA%8F%E7%AB%A0/" class="post-title-link" itemprop="url">未命名</a>
+            <a href="/2024/06/18/rCore%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/rCore%20%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E5%AD%A6%E4%B9%A0%E2%80%94%E2%80%94%E5%BA%8F%E7%AB%A0/" class="post-title-link" itemprop="url">rCore 操作系统学习——序章</a>
         </h2>
 
         <div class="post-meta">
@@ -366,8 +366,17 @@ mjx-container[display="true"] + br {
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2024-07-17 23:06:07" itemprop="dateModified" datetime="2024-07-17T23:06:07+08:00">2024-07-17</time>
+                <time title="修改时间：2024-07-17 23:15:38" itemprop="dateModified" datetime="2024-07-17T23:15:38+08:00">2024-07-17</time>
               </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/" itemprop="url" rel="index"><span itemprop="name">操作系统</span></a>
+                </span>
+            </span>
 
           
 
@@ -380,121 +389,15 @@ mjx-container[display="true"] + br {
     <div class="post-body" itemprop="articleBody">
 
       
-          <h1 id="rcore-操作系统学习序章">rCore 操作系统学习——序章</h1>
-<p>操作系统是所有计算机专业学生的必修课，但操作系统的原理与概念繁多，与具体实现存在较大的鸿沟，单纯的理论知识也会逐渐的遗忘。本博客跟随课程<a href="%5Bgithub.com%5D(https://github.com/rcore-os/rCore-Tutorial-v3)">rCore-Tutorial</a>逐步实现一个RISC-V指令集的操作系统。
-## 引言 ### 前期准备</p>
-<ul>
-<li>了解计算机的基本原理</li>
-<li>基本的数据结构与算法</li>
-<li>RISC-V处理器的指令集和部分特权操作</li>
-<li>Rust语言</li>
-<li>RISC-V汇编语言</li>
-<li>Linux开发环境和相关开发工具</li>
-</ul>
-<h3 id="目标与步骤">目标与步骤</h3>
-<ul>
-<li>以RISC-V基本架构为底层硬件基础，逐步实现能满足“从简单到复杂”应用需求的多个“小”操作系统</li>
-<li>逐步学习操作系统的各种概念和原理</li>
-<li>完成各个步骤的blog记录，增加对整体流程的熟悉</li>
-</ul>
-<h3 id="编程语言与硬件环境">编程语言与硬件环境</h3>
-<ul>
-<li>Rust语言</li>
-<li>RISC-V指令集架构</li>
-</ul>
-<h2 id="操作系统概念">操作系统概念</h2>
-<h3 id="操作系统定义">操作系统定义</h3>
-<p>操作系统是一种系统软件，主要功能是向下管理CPU、内存和各种外设等硬件资源，并形成软件执行环境来向上管理和服务应用软件。</p>
-<h3 id="操作系统的主要组成">操作系统的主要组成</h3>
-<ol type="1">
-<li>操作系统内核：操作系统的核心部分，负责控制计算机的硬件资源并为用户和应用程序提供服务。</li>
-<li>系统工具和软件库：为操作系统提供基本功能的软件，包括工具软件和系统软件库等。</li>
-<li>用户接口：是操作系统的外壳，是用户与操作系统交互的方式。用户接口包括图形用户界面（GUI）和命令行界面（CLI）等。</li>
-</ol>
-<h3 id="操作系统内核组成">操作系统内核组成：</h3>
-<ul>
-<li>进程/线程管理：管理系统中的进程或线程，创建、销毁、调度和切换进程或线程。</li>
-<li>内存管理：管理系统的内存，分配和回收内存空间，并保证进程之间的内存隔离。</li>
-<li>文件系统：提供文件系统接口，负责管理存储设备上的文件和目录，并允许应用访问文件系统。</li>
-<li>网络通信：提供网络通信接口，负责管理网络连接并允许应用进行网络通信。</li>
-<li>设备驱动：提供设备驱动接口，负责管理硬件设备并允许应用和内核其他部分访问设备。</li>
-<li>同步互斥：内核负责协调多个进程或线程之间对共享资源的访问。同步功能主要用于解决进程或线程之间的协作问题，互斥功能主要用于解决进程或线程之间的竞争问题。</li>
-<li>系统调用接口：提供给应用程序访问系统服务的入口，应用程序通过系统调用接口调用操作系统提供的服务，如文件系统、网络通信、进程管理等。</li>
-</ul>
-<h3 id="操作系统调用接口">操作系统调用接口</h3>
-<p>操作系统内核是一个提供各种服务的软件，其服务对象是应用程序，而用户（这里可以理解为一般使用计算机的人）是通过应用程序的服务间接获得操作系统的服务的，因此操作系统内核藏在一般用户看不到的地方。但应用程序需要访问操作系统获得操作系统的服务，这就需要通过操作系统的接口才能完成。操作系统与运行在用户态软件之间的接口形式就是上一节提到的应用程序二进制接口
-(ABI, Application Binary Interface)。</p>
-<p>操作系统不能只提供面向单一编程语言的函数库的编程接口 (API,
-Application Programming Interface)
-，它的接口需要考虑对基于各种编程语言的应用支持，以及访问安全等因素，使得应用软件不能像访问函数库一样的直接访问操作系统内部函数，更不能直接读写操作系统内部的地址空间。为此，操作系统设计了一套安全可靠的二进制接口，我们称为系统调用接口
-(System Call Interface)。系统调用接口通常面向应用程序提供了 API
-的描述，但在具体实现上，还需要提供 ABI 的接口描述规范。</p>
-<p>在现代处理器的安全支持（特权级隔离，内存空间隔离等）下，应用程序就不能直接以函数调用的方式访问操作系统的函数，以及直接读写操作系统的数据变量。不同类型的应用程序可以通过符合操作系统规定的系统调用接口，发出系统调用请求，来获得操作系统的服务。操作系统提供完服务后，返回应用程序继续执行。</p>
-<h4 id="api与abi">API与ABI</h4>
-<ul>
-<li><strong>应用程序二进制接口(ABI)</strong> :
-ABI是不同二进制代码的连接纽带。ABI定义了二进制机器代码级别的规则，主要包括基本数据类型、通用寄存器的使用、参数的传递规则、以及堆栈的使用等等。ABI
-与处理器和内存地址等硬件架构相关，是用来约束链接器 (Linker) 和汇编器
-(Assembler)
-的。在同一处理器下，基于不同高级语言编写的应用程序、库和操作系统，如果遵循同样的
-ABI 定义，那么它们就能正确链接和执行。</li>
-<li><strong>应用程序编程接口(API)</strong> : API
-是不同源代码片段的连接纽带。API 定义了一个源码级（如 C
-语言）函数的参数，参数的类型，函数的返回值等。因此 API 是用来约束编译器
-(Compiler) 的：一个 API
-是给编译器的一些指令，它规定了源代码可以做以及不可以做哪些事。API
-与编程语言相关，如 <em>libc</em> 是基于 C 语言编写的标准库，那么基于 C
-的应用程序就可以通过编译器建立与 <em>libc</em>
-的联系，并能在运行中正确访问 <em>libc</em> 中的函数。</li>
-</ul>
-<h4 id="系统调用接口与功能">系统调用接口与功能</h4>
-<ul>
-<li><strong>进程（即程序运行过程）管理</strong>：复制创建进程 fork
-、退出进程 exit 、执行进程 exec 等。</li>
-<li><strong>线程管理</strong>：线程（即程序的一个执行流）的创建、执行、调度切换等。</li>
-<li><strong>线程同步互斥的并发控制</strong>：互斥锁 mutex 、信号量
-semaphore 、管程 monitor 、条件变量 condition variable 等。</li>
-<li><strong>进程间通信</strong>：管道 pipe 、信号 signal 、事件 event
-等。</li>
-<li><strong>虚存管理</strong>：内存空间映射 mmap
-、改变数据段地址空间大小 sbrk 、共享内存 shm 等。</li>
-<li><strong>文件 I/O 操作</strong>：对存储设备中的文件进行读 read 、写
-write 、打开 open 、关闭 close 等操作。</li>
-<li><strong>外设 I/O
-操作</strong>：外设包括键盘、显示器、串口、磁盘、时钟 … ，主要采用文件
-I/O 操作接口。</li>
-</ul>
-<h2 id="实验环境配置">实验环境配置</h2>
-<h3 id="wsl2安装">WSL2安装</h3>
-<p>以管理员身份打开 PowerShell 终端并输入以下命令</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">启用 Windows 功能：“适用于 Linux 的 Windows 子系统”</span></span><br><span class="line"><span class="meta prompt_">&gt;</span><span class="language-bash">&gt; dism.exe /online /enable-feature /featurename:Microsoft-Windows-Subsystem-Linux /all /norestart</span></span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">启用 Windows 功能：“已安装的系统虚拟机平台”</span></span><br><span class="line"><span class="meta prompt_">&gt;</span><span class="language-bash">&gt; dism.exe /online /enable-feature /featurename:VirtualMachinePlatform /all /norestart</span></span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">&lt;Distro&gt; 改为对应从微软应用商店安装的 Linux 版本名，比如：`wsl --set-version Ubuntu 2`</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">如果你没有提前从微软应用商店安装任何 Linux 版本，请跳过此步骤</span></span><br><span class="line"><span class="meta prompt_">&gt;</span><span class="language-bash">&gt; wsl --set-version &lt;Distro&gt; 2</span></span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">设置默认为 WSL 2，如果 Windows 版本不够，这条命令会出错</span></span><br><span class="line"><span class="meta prompt_">&gt;</span><span class="language-bash">&gt; wsl --set-default-version 2</span></span><br></pre></td></tr></table></figure>
-<h3 id="c-开发环境">C 开发环境</h3>
-<p>输入以下命令安装对应软件即可：</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get update &amp;&amp; sudo apt-get upgrade</span><br><span class="line">sudo apt-get install git build-essential gdb-multiarch qemu-system-misc gcc-riscv64-linux-gnu binutils-riscv64-linux-gnu</span><br></pre></td></tr></table></figure>
-<h3 id="rust-开发环境">Rust 开发环境</h3>
-<ol type="1">
-<li><p>安装Rust版本管理器和Rust包管理器cargo，命令如下：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">curl https://sh.rustup.rs -sSf | sh</span><br></pre></td></tr></table></figure>
-<p>若速度较慢可使用国内镜像进行加速：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">export RUSTUP_DIST_SERVER=https://mirrors.ustc.edu.cn/rust-static</span><br><span class="line">export RUSTUP_UPDATE_ROOT=https://mirrors.ustc.edu.cn/rust-static/rustup</span><br><span class="line">curl https://sh.rustup.rs -sSf | sh</span><br></pre></td></tr></table></figure>
-<p>使用下述命令查看是否安装成功</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">rustc --version</span><br></pre></td></tr></table></figure>
-<p>本课程必须使用rustc的nightly版本，可使用下述命令安装nightly版本，并设置为rustc的缺省版本</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">rustup install nightly</span><br><span class="line">rustup default nightly</span><br></pre></td></tr></table></figure>
-<p>软件包管理器cargo安装软件较慢，可使用国内镜像进行加速。修改<code>~/.cargo/config</code>文件如下：</p>
-<figure class="highlight toml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="section">[source.crates-io]</span></span><br><span class="line"><span class="attr">replace-with</span> = <span class="string">&#x27;tuna&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="section">[source.tuna]</span></span><br><span class="line"><span class="attr">registry</span> = <span class="string">&quot;https://mirrors.tuna.tsinghua.edu.cn/git/crates.io-index.git&quot;</span></span><br></pre></td></tr></table></figure>
-<p>接着下载Rust相关的依赖包</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">rustup target add riscv64gc-unknown-none-elf</span><br><span class="line">cargo install cargo-binutils</span><br><span class="line">rustup component add llvm-tools-preview</span><br><span class="line">rustup component add rust-src</span><br></pre></td></tr></table></figure></li>
-</ol>
-<h3 id="qemu-模拟器安装">QEMU 模拟器安装</h3>
-<p>本文实验环境使用的Ubuntu24.04，可直接安装8.3版本。对于低一些的版本，可选择从源码构建，构建命令如下：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 安装编译所需的依赖包</span></span><br><span class="line">sudo apt install autoconf automake autotools-dev curl libmpc-dev libmpfr-dev libgmp-dev \</span><br><span class="line">              gawk build-essential bison flex texinfo gperf libtool patchutils bc \</span><br><span class="line">              zlib1g-dev libexpat-dev pkg-config  libglib2.0-dev libpixman-1-dev libsdl2-dev libslirp-dev \</span><br><span class="line">              git tmux python3 python3-pip ninja-build</span><br><span class="line"><span class="comment"># 下载源码包</span></span><br><span class="line"><span class="comment"># 如果下载速度过慢可以使用我们提供的百度网盘链接：https://pan.baidu.com/s/1dykndFzY73nqkPL2QXs32Q</span></span><br><span class="line"><span class="comment"># 提取码：jimc</span></span><br><span class="line">wget https://download.qemu.org/qemu-7.0.0.tar.xz</span><br><span class="line"><span class="comment"># 解压</span></span><br><span class="line">tar xvJf qemu-7.0.0.tar.xz</span><br><span class="line"><span class="comment"># 编译安装并配置 RISC-V 支持</span></span><br><span class="line"><span class="built_in">cd</span> qemu-7.0.0</span><br><span class="line">./configure --target-list=riscv64-softmmu,riscv64-linux-user  <span class="comment"># 在第九章的实验中，可以有图形界面和网络。如果要支持图形界面，可添加 &quot; --enable-sdl&quot; 参数；如果要支持网络，可添加 &quot; --enable-slirp&quot; 参数</span></span><br><span class="line">make -j$(<span class="built_in">nproc</span>)</span><br></pre></td></tr></table></figure>
-<p>确认QEMU的版本</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">qemu-system-riscv64 --version</span><br><span class="line">qemu-riscv64 --version</span><br></pre></td></tr></table></figure>
-<p><strong>注：</strong>QEMU模拟器的退出仍存在问题</p>
-<h3 id="gdb调试支持">GDB调试支持</h3>
-<h2 id="练习">练习</h2>
-
+          <p>rCore 操作系统学习，记录操作系统相关知识，以及编程环境的配置流程。</p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2024/06/18/rCore%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/rCore%20%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E5%AD%A6%E4%B9%A0%E2%80%94%E2%80%94%E5%BA%8F%E7%AB%A0/">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
       
     </div>
 
@@ -1217,13 +1120,13 @@ I/O 操作接口。</li>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">6</span>
+        <span class="site-state-item-count">7</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">5</span>
+        <span class="site-state-item-count">7</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
