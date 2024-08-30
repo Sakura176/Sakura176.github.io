@@ -30,7 +30,7 @@
 <meta property="og:image" content="http://example.com/2024/08/05/rCoreOS/rCoreOS-ch1/lib-os-detail.png">
 <meta property="og:image" content="http://example.com/2024/08/05/rCoreOS/rCoreOS-ch1/app-software-stack.png">
 <meta property="article:published_time" content="2024-08-05T15:05:51.075Z">
-<meta property="article:modified_time" content="2024-08-30T15:13:26.460Z">
+<meta property="article:modified_time" content="2024-08-30T15:34:03.473Z">
 <meta property="article:author" content="不摇碧莲">
 <meta property="article:tag" content="Rust">
 <meta property="article:tag" content="RISC-V">
@@ -196,7 +196,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2024-08-30 23:13:26" itemprop="dateModified" datetime="2024-08-30T23:13:26+08:00">2024-08-30</time>
+                <time title="修改时间：2024-08-30 23:34:03" itemprop="dateModified" datetime="2024-08-30T23:34:03+08:00">2024-08-30</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -290,6 +290,48 @@ CPU 寄存器、内存和 I/O 设备三者之间流动。</p>
 CPU、操作系统和运行时库等信息，从而控制Rust编译器可执行代码生成。</p>
 <p>可使用如下命令查看rustc的默认配置信息：</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">rustc --version --verbose</span><br><span class="line">	binary: rustc</span><br><span class="line">	commit-hash: 5315cbe15b79533f380bbb6685aa5480d5ff4ef5</span><br><span class="line">	commit-date: 2024-07-11</span><br><span class="line">	host: x86_64-unknown-linux-gnu</span><br><span class="line">	release: 1.81.0-nightly</span><br><span class="line">	LLVM version: 18.1.7</span><br></pre></td></tr></table></figure>
+<p>从其中的 host 一项可以看出默认的目标平台是
+<code>x86_64-unknown-linux-gnu</code>，其中 CPU 架构是 x86_64，CPU
+厂商是 unknown，操作系统是 linux，运行时库是 GNU libc（封装了 Linux
+系统调用，并提供 POSIX 接口为主的函数库）。</p>
+<p>目前 Rust 编译器支持哪些基于 RISC-V 的目标平台：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">$ rustc --<span class="built_in">print</span> target-list | grep riscv</span><br><span class="line">riscv32gc-unknown-linux-gnu</span><br><span class="line">riscv32i-unknown-none-elf</span><br><span class="line">riscv32imac-unknown-none-elf</span><br><span class="line">riscv32imc-unknown-none-elf</span><br><span class="line">riscv64gc-unknown-linux-gnu</span><br><span class="line">riscv64gc-unknown-none-elf</span><br><span class="line">riscv64imac-unknown-none-elf</span><br></pre></td></tr></table></figure>
+<p>这里我们选择 <code>riscv64gc-unknown-none-elf</code>
+目标平台。这其中的 CPU 架构是 riscv64gc ，CPU厂商是 unknown ，操作系统是
+none ， elf
+表示没有标准的运行时库（表明没有任何系统调用的封装支持），但可以生成 ELF
+格式的执行程序。这里我们之所以不选择有 linux-gnu 系统调用支持的目标平台
+<code>riscv64gc-unknown-linux-gnu</code>，是因为我们只是想跑一个在裸机环境上运行的
+<code>Hello, world!</code>
+应用程序，没有必要使用Linux操作系统提供的那么高级的抽象和多余的操作系统服务。而且我们很清楚后续我们要开发的是一个操作系统内核，它必须直面底层物理硬件（bare-metal）来提供精简的操作系统服务功能，通用操作系统（如
+Linux）提供的很多系统调用服务对这个内核而言是多余的。</p>
+<blockquote>
+<p><strong>RISC-V 指令集拓展</strong></p>
+<p>由于基于 RISC-V
+架构的处理器可能用于嵌入式场景或是通用计算场景，因此指令集规范将指令集划分为最基本的
+RV32/64I
+以及若干标准指令集拓展。每款处理器只需按照其实际应用场景按需实现指令集拓展即可。</p>
+<ul>
+<li>RV32/64I：每款处理器都必须实现的基本整数指令集。在 RV32I
+中，每个通用寄存器的位宽为 32 位；在 RV64I 中则为 64
+位。它可以用来模拟绝大多数标准指令集拓展中的指令，除了比较特殊的 A
+拓展，因为它需要特别的硬件支持。</li>
+<li>M 拓展：提供整数乘除法相关指令。</li>
+<li>A 拓展：提供原子指令和一些相关的内存同步机制，这个后面会展开。</li>
+<li>F/D 拓展：提供单/双精度浮点数运算支持。</li>
+<li>C 拓展：提供压缩指令拓展。</li>
+</ul>
+<p>G 拓展是基本整数指令集 I 再加上标准指令集拓展 MAFD 的总称，因此
+riscv64gc 也就等同于
+riscv64imafdc。我们剩下的内容都基于该处理器架构完成。除此之外 RISC-V
+架构还有很多标准指令集拓展，有一些还在持续更新中尚未稳定，有兴趣的同学可以浏览最新版的
+RISC-V 指令集规范。</p>
+</blockquote>
+<h2 id="移除rust标准库依赖">移除Rust标准库依赖</h2>
+<h3 id="rust标准库">Rust标准库</h3>
+<h3 id="移除-println-宏">移除 <code>println!</code> 宏</h3>
+<h3 id="提供panic_handler功能应对致命错误">提供panic_handler功能应对致命错误</h3>
+<h3 id="移除-main-函数">移除 main 函数</h3>
 <h2 id="练习">练习</h2>
 <h3 id="编程题">编程题</h3>
 <ol type="1">
@@ -393,7 +435,7 @@ Tutorial的应用程序，该程序使用sleep系统调用睡眠5秒</p></li>
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%BC%95%E8%A8%80"><span class="nav-number">1.</span> <span class="nav-text">引言</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%9C%AC%E7%AB%A0%E4%BB%A3%E7%A0%81%E6%A0%91"><span class="nav-number">2.</span> <span class="nav-text">本章代码树</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BB%8Erust%E5%BA%94%E7%94%A8%E7%A8%8B%E5%BA%8F%E5%BC%80%E5%A7%8B"><span class="nav-number">3.</span> <span class="nav-text">从rust应用程序开始</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%89%A7%E8%A1%8C%E5%BA%94%E7%94%A8%E7%A8%8B%E5%BA%8F"><span class="nav-number">3.1.</span> <span class="nav-text">执行应用程序</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%BA%94%E7%94%A8%E6%89%A7%E8%A1%8C%E7%8E%AF%E5%A2%83"><span class="nav-number">3.2.</span> <span class="nav-text">应用执行环境</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%9B%AE%E6%A0%87%E5%B9%B3%E5%8F%B0%E4%B8%8E%E7%9B%AE%E6%A0%87%E4%B8%89%E5%85%83%E7%BB%84"><span class="nav-number">4.</span> <span class="nav-text">目标平台与目标三元组</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%BC%96%E8%AF%91%E5%99%A8%E5%B7%A5%E4%BD%9C%E6%B5%81%E7%A8%8B"><span class="nav-number">4.1.</span> <span class="nav-text">编译器工作流程</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%BB%83%E4%B9%A0"><span class="nav-number">5.</span> <span class="nav-text">练习</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%BC%96%E7%A8%8B%E9%A2%98"><span class="nav-number">5.1.</span> <span class="nav-text">编程题</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%97%AE%E7%AD%94%E9%A2%98"><span class="nav-number">5.2.</span> <span class="nav-text">问答题</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%9E%E9%AA%8C%E9%A2%98"><span class="nav-number">5.3.</span> <span class="nav-text">实验题</span></a></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%BC%95%E8%A8%80"><span class="nav-number">1.</span> <span class="nav-text">引言</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%9C%AC%E7%AB%A0%E4%BB%A3%E7%A0%81%E6%A0%91"><span class="nav-number">2.</span> <span class="nav-text">本章代码树</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BB%8Erust%E5%BA%94%E7%94%A8%E7%A8%8B%E5%BA%8F%E5%BC%80%E5%A7%8B"><span class="nav-number">3.</span> <span class="nav-text">从rust应用程序开始</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%89%A7%E8%A1%8C%E5%BA%94%E7%94%A8%E7%A8%8B%E5%BA%8F"><span class="nav-number">3.1.</span> <span class="nav-text">执行应用程序</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%BA%94%E7%94%A8%E6%89%A7%E8%A1%8C%E7%8E%AF%E5%A2%83"><span class="nav-number">3.2.</span> <span class="nav-text">应用执行环境</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%9B%AE%E6%A0%87%E5%B9%B3%E5%8F%B0%E4%B8%8E%E7%9B%AE%E6%A0%87%E4%B8%89%E5%85%83%E7%BB%84"><span class="nav-number">4.</span> <span class="nav-text">目标平台与目标三元组</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%BC%96%E8%AF%91%E5%99%A8%E5%B7%A5%E4%BD%9C%E6%B5%81%E7%A8%8B"><span class="nav-number">4.1.</span> <span class="nav-text">编译器工作流程</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%A7%BB%E9%99%A4rust%E6%A0%87%E5%87%86%E5%BA%93%E4%BE%9D%E8%B5%96"><span class="nav-number">5.</span> <span class="nav-text">移除Rust标准库依赖</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#rust%E6%A0%87%E5%87%86%E5%BA%93"><span class="nav-number">5.1.</span> <span class="nav-text">Rust标准库</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%A7%BB%E9%99%A4-println-%E5%AE%8F"><span class="nav-number">5.2.</span> <span class="nav-text">移除 println! 宏</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%8F%90%E4%BE%9Bpanic_handler%E5%8A%9F%E8%83%BD%E5%BA%94%E5%AF%B9%E8%87%B4%E5%91%BD%E9%94%99%E8%AF%AF"><span class="nav-number">5.3.</span> <span class="nav-text">提供panic_handler功能应对致命错误</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%A7%BB%E9%99%A4-main-%E5%87%BD%E6%95%B0"><span class="nav-number">5.4.</span> <span class="nav-text">移除 main 函数</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%BB%83%E4%B9%A0"><span class="nav-number">6.</span> <span class="nav-text">练习</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%BC%96%E7%A8%8B%E9%A2%98"><span class="nav-number">6.1.</span> <span class="nav-text">编程题</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%97%AE%E7%AD%94%E9%A2%98"><span class="nav-number">6.2.</span> <span class="nav-text">问答题</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%9E%E9%AA%8C%E9%A2%98"><span class="nav-number">6.3.</span> <span class="nav-text">实验题</span></a></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
